@@ -1,0 +1,29 @@
+<mat-card>
+    <mat-card-header>
+      <mat-form-field>
+        <input matInput (keyup)="filterChange($event)" placeholder="User Search" />
+      </mat-form-field>
+        <button style="margin-left: 60%;" (click)="addUser()" mat-raised-button color="primary">Add User +</button>
+    </mat-card-header>
+    <mat-card-content>
+
+      <table matSort mat-table   class="mat-elevation-z8">
+        <ng-container matColumnDef="Sr.No">
+          <th mat-sort-header mat-header-cell *matHeaderCellDef>Sr.No</th>
+        </ng-container>
+
+        <ng-container>
+          <th>Name</th>
+        </ng-container>
+
+        <ng-container>
+          <th>Mobile</th>
+        </ng-container>
+
+        <ng-container>
+          <th>Email</th>
+        </ng-container>
+
+      </table>
+    </mat-card-content>
+</mat-card>
