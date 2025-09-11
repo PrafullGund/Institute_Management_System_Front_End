@@ -16,6 +16,8 @@ import { FeeListComponent } from './component/fee-list/fee-list.component';
 import { ActivitiesFollowUpAddComponent } from './component/activities-follow-up-add/activities-follow-up-add.component';
 import { ActivitiesFollowUpListComponent } from './component/activities-follow-up-list/activities-follow-up-list.component';
 import { ReportsComponent } from './component/reports/reports.component';
+import { UserRegistrationComponent } from './component/user-registration/user-registration.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -33,11 +35,14 @@ import { ReportsComponent } from './component/reports/reports.component';
     FeeListComponent,
     ActivitiesFollowUpAddComponent,
     ActivitiesFollowUpListComponent,
-    ReportsComponent
+    ReportsComponent,
+    UserRegistrationComponent
   ],
   imports: [
     CommonModule,
-    InquiryRoutingModule
+    InquiryRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class InquiryModule { }

@@ -8,22 +8,24 @@ import { AdmissionListComponent } from './component/admission-list/admission-lis
 import { FeeListComponent } from './component/fee-list/fee-list.component';
 import { ActivitiesFollowUpListComponent } from './component/activities-follow-up-list/activities-follow-up-list.component';
 import { ReportsComponent } from './component/reports/reports.component';
+import { UserRegistrationComponent } from './component/user-registration/user-registration.component';
 
 const routes: Routes = [
   {
-    path:'',
-    component:DashboardComponent,
-    children:[
-      {path:'',component:HomeComponent},
-      {path:'user',component:UserListComponent},
-      {path:'course',component:CoursesListComponent},
-      {path:'admission',component:AdmissionListComponent},
-      {path:'fee',component:FeeListComponent},
-      {path:'follow-up',component:ActivitiesFollowUpListComponent},
-      {path:'reports',component:ReportsComponent}
+    path: '',
+    component: DashboardComponent,
+    children: [
+      { path: '', component: HomeComponent },
+      { path: 'user', component: UserListComponent },
+      { path: 'user-registration/:id', component: UserRegistrationComponent },
+      { path: 'course', component: CoursesListComponent },
+      { path: 'admission', component: AdmissionListComponent },
+      { path: 'fee', component: FeeListComponent },
+      { path: 'follow-up', component: ActivitiesFollowUpListComponent },
+      { path: 'reports', component: ReportsComponent }
     ]
   },
-  {path:'dashboard',redirectTo:'',pathMatch:'full'}
+  { path: 'dashboard', redirectTo: '', pathMatch: 'full' }
 ];
 
 @NgModule({

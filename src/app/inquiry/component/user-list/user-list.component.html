@@ -1,1 +1,40 @@
-<p>user-list works!</p>
+<div class="container mt-4">
+  <div class="d-flex justify-content-end">
+    <button class="btn btn-primary btn-add" (click)="addUser()">User Add</button>
+  </div>
+
+  <table class="table table-bordered table-striped mt-5">
+    <thead>
+      <tr class="text-center">
+        <th>Sr.No</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Address</th>
+        <th>Education</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users;let i=index">
+        <td>{{i+1}}</td>
+        <td>{{user.firstName }}</td>
+        <td>{{user.lastName }}</td>
+        <td>{{user.email }}</td>
+        <td>{{user.mobile }}</td>
+        <td>{{user.educationTitle }}</td>
+        <td>{{user.city }}</td>
+        <td>
+          <button class="btn btn-sm btn-outline-primary me-2" (click)="editUser(user)">
+            <i class="fas fa-edit"></i>
+          </button>
+
+          <button class="btn btn-sm btn-outline-danger" (click)="deleteUser(user)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
