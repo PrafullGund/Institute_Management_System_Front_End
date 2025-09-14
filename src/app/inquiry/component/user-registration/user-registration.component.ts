@@ -22,13 +22,14 @@ export class UserRegistrationComponent {
     private route: ActivatedRoute
   ) {
     this.initForm();
-
-    this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-      if (id) {
-        this.userId = +id;
-        this.isEditMode = true;
+    
+    this.userService.selectedUser$.subscribe(user=>{
+      if(user){
+        this.userId=user.userId || user.id;
+        this.isEditMode=true;
         this.loadGetByIdUser(this.userId);
+      }else{
+        this.isEditMode=false;
       }
     })
   }
@@ -119,6 +120,7 @@ export class UserRegistrationComponent {
   onCancel() {
     this.userRegistrationForm.reset();
     this.submitted = false;
+    this.userService.clearSelectedUser();
     this.router.navigate(['/inquiry/user']);
   }
 }

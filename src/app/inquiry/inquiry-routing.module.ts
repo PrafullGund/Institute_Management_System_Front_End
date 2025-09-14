@@ -9,14 +9,17 @@ import { FeeListComponent } from './component/fee-list/fee-list.component';
 import { ActivitiesFollowUpListComponent } from './component/activities-follow-up-list/activities-follow-up-list.component';
 import { ReportsComponent } from './component/reports/reports.component';
 import { UserRegistrationComponent } from './component/user-registration/user-registration.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: '', component: HomeComponent },
       { path: 'user', component: UserListComponent },
+      { path: 'user-registration', component: UserRegistrationComponent },
       { path: 'user-registration/:id', component: UserRegistrationComponent },
       { path: 'course', component: CoursesListComponent },
       { path: 'admission', component: AdmissionListComponent },

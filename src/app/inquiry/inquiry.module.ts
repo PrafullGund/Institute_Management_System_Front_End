@@ -18,6 +18,7 @@ import { ActivitiesFollowUpListComponent } from './component/activities-follow-u
 import { ReportsComponent } from './component/reports/reports.component';
 import { UserRegistrationComponent } from './component/user-registration/user-registration.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HighlightPipe } from '../pipes/highlight.pipe';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ActivitiesFollowUpAddComponent,
     ActivitiesFollowUpListComponent,
     ReportsComponent,
-    UserRegistrationComponent
+    UserRegistrationComponent,
+    HighlightPipe
   ],
   imports: [
     CommonModule,

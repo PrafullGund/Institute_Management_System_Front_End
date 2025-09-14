@@ -5,11 +5,16 @@ export class API_END_POINTS{
         postSignIn:`${environment.serverBaseUrl}signIn`
     }
 
+    public static logout={
+        postLogOut:`${environment.serverBaseUrl}logout`
+    }
+
     public static user={
         postUserRegistration:`${environment.serverBaseUrl}registration`,
         getAllUserRegistration:`${environment.serverBaseUrl}register`,
         getByIdUserRegistration:`${environment.serverBaseUrl}register`,
         updateUserRegistration:`${environment.serverBaseUrl}register`,
-        deleteUserRegistration:`${environment.serverBaseUrl}register`
+        deleteUserRegistration:`${environment.serverBaseUrl}register`,
+        searchUsers:`${environment.serverBaseUrl}userSearch`
     }
 }

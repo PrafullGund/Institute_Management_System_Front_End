@@ -24,8 +24,11 @@
             <div *ngIf="signInForm.controls['password'].hasError('required') && signInForm.controls['password'].touched" class="text-danger">
                 Password is Required
             </div>
-            <button type="submit" class="btn btn-primary w-100" (click)="submitForm()">Login</button>
-            <p class="text-center mt-3"><a href="#">Forgot password?</a></p>
+            <button type="submit" class="btn btn-primary w-100" (click)="submitForm()">Login</button><br>
+            <div class="d-flex justify-content-between mt-3">
+          <a href="#" class="text-decoration-none">Forgot password?</a>
+          <a class="text-decoration-none pointer" (click)="registration()">New user? Register</a>
+        </div>
         </form>
     </div>
 </body>
