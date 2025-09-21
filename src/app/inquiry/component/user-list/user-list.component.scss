@@ -1,40 +1,19 @@
-.table {
+.mat-table {
+  width: 100%;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-.table thead {
+.mat-header-cell {
   background: linear-gradient(90deg, #0F172A, #2563EB);
-  color: #FFFFFF;
-}
-
-.table thead th {
+  color: #fff;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-  background-color: #374151;
-  color: #F9FAFB;
 }
 
-.table tbody tr {
-  background-color: #F8FAFC;
-  transition: background-color 0.2s ease-in;
-}
-
-.table tbody tr:nth-child(even) {
-  background-color: #F1F5F9;
-}
-
-.table tbody tr:hover {
-  background-color: #E0F2FE;
-}
-
-.table td,
-.table th {
+.mat-cell,
+.mat-header-cell {
   padding: 14px 16px;
-  vertical-align: middle;
-  border-color: #E2E8F0;
 }
 
 .btn-add {
@@ -43,7 +22,7 @@
   border: none;
   padding: 12px 24px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -61,6 +40,22 @@
   transform: translateY(1px);
 }
 
-.pointer{
-  cursor: pointer;
+.custom-textarea {
+  margin-top: 15px;
+  margin-right: 19px;
+  width: 174px;
+  height: 66px;
+}
+
+.custom-textarea textarea {
+  height: 100% !important;
+  resize: none;
+}
+
+
+.custom-table {
+  background-color: #374151 !important;
+  color: #ffff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }

@@ -17,4 +17,9 @@ export class API_END_POINTS{
         deleteUserRegistration:`${environment.serverBaseUrl}register`,
         searchUsers:`${environment.serverBaseUrl}userSearch`
     }
+
+    public static course={
+        postAllCourse:`${environment.serverBaseUrl}courses/with-type`,
+        getAllCourse:`${environment.serverBaseUrl}courses/with-type`
+    }
 }

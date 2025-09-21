@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
+import { MatTableDataSource } from '@angular/material/table';
+import { PageEvent } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-user-list',
@@ -18,15 +21,32 @@ export class UserListComponent {
   Math = Math;
   lastSearchText = '';
 
-  ngOnInit() {
-    this.loadUsers();
-    this.onSearchUser();
-  }
+  dataSource = new MatTableDataSource<any>([]);
+  displayedColumns: string[] = [
+    'srNo',
+    'firstName',
+    'lastName',
+    'mobile',
+    'educationTitle',
+    'city',
+    'action'
+  ];
+
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
     private router: Router,
     private userService: UserService
   ) { }
+
+  ngOnInit() {
+    this.loadUsers();
+    this.onSearchUser();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort
+  }
 
   changePage(page: number) {
     this.currentPage = page;
@@ -34,6 +54,7 @@ export class UserListComponent {
     if (this.lastSearchText) {
       this.userService.searchUser(this.lastSearchText).subscribe(res => {
         this.users = res.data;
+        this.dataSource.data = this.users;
         this.totalUsers = res.total || res.data.length;
         this.currentPage = res.page || page;
       });
@@ -46,6 +67,7 @@ export class UserListComponent {
     this.userService.getAllUserRegister(page, this.limit).subscribe({
       next: (res) => {
         this.users = res.users;
+        this.dataSource.data = this.users;
         this.totalUsers = res.total;
         this.currentPage = res.page;
       },
@@ -90,11 +112,15 @@ export class UserListComponent {
     this.router.navigate(['/inquiry/user-registration']);
   }
 
-onSearchInputChange(event: any) {
-  this.lastSearchText = event.target.value.trim();
-  this.searchTerm.next(this.lastSearchText);
-}
+  onPageChange(event: PageEvent) {
+    this.limit = event.pageSize;
+    this.changePage(event.pageIndex + 1);
+  }
 
+  onSearchInputChange(event: any) {
+    this.lastSearchText = event.target.value.trim();
+    this.searchTerm.next(this.lastSearchText);
+  }
 
   onSearchUser() {
     this.searchTerm.pipe(
@@ -105,12 +131,14 @@ onSearchInputChange(event: any) {
         this.userService.searchUser(searchText, this.currentPage, this.limit).subscribe({
           next: (res) => {
             this.users = res.users;
+            this.dataSource.data = this.users;
             this.totalUsers = res.total;
             this.currentPage = res.page;
           },
           error: (err) => {
             if (err.status === 404) {
               this.users = [];
+              this.dataSource.data = [];
               this.totalUsers = 0;
               Swal.fire({
                 icon: 'info',
@@ -129,5 +157,20 @@ onSearchInputChange(event: any) {
       }
     });
   }
+
+  sortByName(order: 'asc' | 'desc') {
+    this.users = this.users.sort((a, b) => {
+      const nameA = (a.firstName + ' ' + a.lastName).toLowerCase();
+      const nameB = (b.firstName + ' ' + b.lastName).toLowerCase();
+
+      if (order === 'asc') {
+        return nameA.localeCompare(nameB);
+      } else {
+        return nameB.localeCompare(nameA);
+      }
+    });
+    this.dataSource.data = [...this.users];
+  }
+  
 
 }

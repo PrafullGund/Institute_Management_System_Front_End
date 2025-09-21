@@ -10,6 +10,8 @@ import { ActivitiesFollowUpListComponent } from './component/activities-follow-u
 import { ReportsComponent } from './component/reports/reports.component';
 import { UserRegistrationComponent } from './component/user-registration/user-registration.component';
 import { AuthGuard } from '../guards/auth.guard';
+import { CoursesAddComponent } from './component/courses-add/courses-add.component';
+import { UnsavedChangesGuard } from '../guards/unsaved-changes.guard';
 
 const routes: Routes = [
   {
@@ -19,9 +21,10 @@ const routes: Routes = [
     children: [
       { path: '', component: HomeComponent },
       { path: 'user', component: UserListComponent },
-      { path: 'user-registration', component: UserRegistrationComponent },
+      { path: 'user-registration', component: UserRegistrationComponent,canDeactivate:[UnsavedChangesGuard] },
       { path: 'user-registration/:id', component: UserRegistrationComponent },
       { path: 'course', component: CoursesListComponent },
+      { path: 'course-add', component: CoursesAddComponent },
       { path: 'admission', component: AdmissionListComponent },
       { path: 'fee', component: FeeListComponent },
       { path: 'follow-up', component: ActivitiesFollowUpListComponent },

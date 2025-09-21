@@ -2,221 +2,183 @@
   <div class="page-header">
     <h2>{{ isEditMode ? 'Update User' : 'Add User' }}</h2>
   </div>
+
   <div class="container mt-4">
-    <div class="card shadow-lg p-4">
+    <mat-card class="shadow-lg p-4">
       <form [formGroup]="userRegistrationForm" (ngSubmit)="saveUser()">
-        <div class="row">
-
-          <div class="col-md-6 mb-3">
-            <label for="firstName" class="form-label">First Name*</label>
-            <input type="text" class="form-control" id="firstName" formControlName="firstName"
-              placeholder="Enter first name" [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }">
-
-            <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
-              <div *ngIf="f['firstName'].errors['required']">First name is required</div>
-            </div>
-
-          </div>
-
-          <div class="col-md-6 mb-3">
-            <label for="lastName" class="form-label">Last Name*</label>
-            <input type="text" class="form-control" id="lastName" formControlName="lastName"
-              placeholder="Enter last name" [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }">
-          </div>
-
-          <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
-            <div *ngIf="f['lastName'].errors['required']">Last name is required</div>
-          </div>
-
-        </div>
 
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="dob" class="form-label">Date of Birth*</label>
-            <input type="date" class="form-control" id="dob" formControlName="dob"
-              [ngClass]="{ 'is-invalid': submitted && f['dob'].errors }">
-
-            <div *ngIf="submitted && f['dob'].errors" class="invalid-feedback">
-              <div *ngIf="f['dob'].errors['required']">Date of Birth is required</div>
-            </div>
-
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>First Name*</mat-label>
+              <input matInput formControlName="firstName" placeholder="Enter first name" />
+              <mat-error *ngIf="submitted && f['firstName'].errors?.['required']">
+                First name is required
+              </mat-error>
+            </mat-form-field>
           </div>
 
           <div class="col-md-6 mb-3">
-            <label for="userType" class="form-label">User Type*</label>
-            <select class="form-select" id="userType" formControlName="userTypeId"
-              [ngClass]="{ 'is-invalid': (submitted || f['userTypeId'].touched) && f['userTypeId'].errors }">
-              <option value="">Select user type</option>
-              <option value="1">Student</option>
-              <option value="2">Trainer</option>
-              <option value="3">Admin</option>
-            </select>
-
-            <div *ngIf="(submitted || f['userTypeId'].touched) && f['userTypeId'].errors" class="invalid-feedback">
-              <div *ngIf="f['userTypeId'].errors['required']">User Type is required</div>
-            </div>
-
-
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Last Name*</mat-label>
+              <input matInput formControlName="lastName" placeholder="Enter last name" />
+              <mat-error *ngIf="submitted && f['lastName'].errors?.['required']">
+                Last name is required
+              </mat-error>
+            </mat-form-field>
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="email" class="form-label">Email*</label>
-            <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter email"
-              [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
-
-            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-              <div *ngIf="f['email'].errors['required']">Email is required</div>
-              <div *ngIf="f['email'].errors['email']">Enter a valid email</div>
-            </div>
-
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Date of Birth*</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="dob" />
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="submitted && f['dob'].errors?.['required']">
+                Date of Birth is required
+              </mat-error>
+            </mat-form-field>
           </div>
 
           <div class="col-md-6 mb-3">
-            <label for="mobile" class="form-label">Mobile*</label>
-            <input type="text" class="form-control" id="mobile" formControlName="mobile"
-              placeholder="Enter mobile number" [ngClass]="{ 'is-invalid': submitted && f['mobile'].errors }">
-          </div>
-
-          <div *ngIf="submitted && f['mobile'].errors" class="invalid-feedback">
-            <div *ngIf="f['mobile'].errors['required']">Mobile number is required</div>
-            <div *ngIf="f['mobile'].errors['pattern']">Mobile must be 10 digits</div>
-          </div>
-
-        </div>
-
-        <div class="mb-3">
-          <label for="password" class="form-label">Password*</label>
-          <input type="password" class="form-control" id="password" formControlName="password"
-            placeholder="Enter password"
-            [ngClass]="{ 'is-invalid': (submitted || f['password'].touched) && f['password'].errors }">
-
-          <div *ngIf="(submitted || f['password'].touched) && f['password'].errors" class="invalid-feedback">
-            <div *ngIf="f['password'].errors['required']">Password is required</div>
-            <div *ngIf="f['password'].errors['pattern']">
-              Must contain at least 8 characters, one uppercase, one lowercase, one number, and one special character.
-            </div>
-          </div>
-        </div>
-
-
-        <div class="mb-3">
-          <label for="addressLineOne" class="form-label">Address One*</label>
-          <input type="text" class="form-control" id="addressLineOne" formControlName="addressLineOne"
-            placeholder="Enter Address" [ngClass]="{ 'is-invalid': submitted && f['addressLineOne'].errors }">
-
-          <div *ngIf="submitted && f['addressLineOne'].errors" class="invalid-feedback">
-            <div *ngIf="f['addressLineOne'].errors['required']">Address is required</div>
-          </div>
-
-        </div>
-
-        <div class="mb-3">
-          <label for="addressLineTwo" class="form-label">Address Two*</label>
-          <input type="text" class="form-control" id="addressLineTwo" formControlName="addressLineTwo"
-            placeholder="Enter Address" [ngClass]="{ 'is-invalid': submitted && f['addressLineTwo'].errors }">
-
-          <div *ngIf="submitted && f['addressLineOne'].errors" class="invalid-feedback">
-            <div *ngIf="f['addressLineOne'].errors['required']">Address is required</div>
-          </div>
-
-        </div>
-
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <label for="country" class="form-label">Country*</label>
-            <input type="text" class="form-control" id="country" formControlName="country" placeholder="Enter country"
-              [ngClass]="{ 'is-invalid': submitted && f['country'].errors }">
-
-            <div *ngIf="submitted && f['country'].errors" class="invalid-feedback">
-              <div *ngIf="f['country'].errors['required']">Country is required</div>
-            </div>
-
-          </div>
-
-          <div class="col-md-6 mb-3">
-            <label for="state" class="form-label">State*</label>
-            <input type="text" class="form-control" id="state" formControlName="state" placeholder="Enter state"
-              [ngClass]="{ 'is-invalid': submitted && f['state'].errors }">
-
-            <div *ngIf="submitted && f['country'].errors" class="invalid-feedback">
-              <div *ngIf="f['country'].errors['required']">Country is required</div>
-            </div>
-
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>User Type*</mat-label>
+              <mat-select formControlName="userTypeId">
+                <mat-option value="">Select user type</mat-option>
+                <mat-option value="1">Student</mat-option>
+                <mat-option value="2">Trainer</mat-option>
+                <mat-option value="3">Admin</mat-option>
+              </mat-select>
+              <mat-error *ngIf="submitted && f['userTypeId'].errors?.['required']">
+                User Type is required
+              </mat-error>
+            </mat-form-field>
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="city" class="form-label">City*</label>
-            <input type="text" class="form-control" id="city" formControlName="city" placeholder="Enter city"
-              [ngClass]="{ 'is-invalid': submitted && f['city'].errors }">
-
-            <div *ngIf="submitted && f['city'].errors" class="invalid-feedback">
-              <div *ngIf="f['city'].errors['required']">City is required</div>
-            </div>
-
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Email*</mat-label>
+              <input matInput type="email" formControlName="email" placeholder="Enter email" />
+              <mat-error *ngIf="submitted && f['email'].errors?.['required']">
+                Email is required
+              </mat-error>
+              <mat-error *ngIf="submitted && f['email'].errors?.['email']">
+                Enter a valid email
+              </mat-error>
+            </mat-form-field>
           </div>
 
           <div class="col-md-6 mb-3">
-            <label for="postalCode" class="form-label">Postal Code*</label>
-            <input type="text" class="form-control" id="postalCode" formControlName="postalCode"
-              placeholder="Enter postal code" [ngClass]="{ 'is-invalid': submitted && f['postalCode'].errors }">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Mobile*</mat-label>
+              <input matInput formControlName="mobile" placeholder="Enter mobile number" />
+              <mat-error *ngIf="submitted && f['mobile'].errors?.['required']">
+                Mobile number is required
+              </mat-error>
+              <mat-error *ngIf="submitted && f['mobile'].errors?.['pattern']">
+                Mobile must be 10 digits
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
 
-            <div *ngIf="submitted && f['postalCode'].errors" class="invalid-feedback">
-              <div *ngIf="f['postalCode'].errors['required']">Country is required</div>
-            </div>
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <mat-label>Password*</mat-label>
+          <input matInput type="password" formControlName="password" placeholder="Enter password" />
+          <mat-error *ngIf="submitted && f['password'].errors?.['required']">
+            Password is required
+          </mat-error>
+          <mat-error *ngIf="submitted && f['password'].errors?.['pattern']">
+            Must contain at least 8 characters, one uppercase, one lowercase, one number, and one special character.
+          </mat-error>
+        </mat-form-field>
 
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <mat-label>Address One*</mat-label>
+          <input matInput formControlName="addressLineOne" placeholder="Enter address" />
+          <mat-error *ngIf="submitted && f['addressLineOne'].errors?.['required']">
+            Address is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <mat-label>Address Two</mat-label>
+          <input matInput formControlName="addressLineTwo" placeholder="Enter address" />
+        </mat-form-field>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Country*</mat-label>
+              <input matInput formControlName="country" placeholder="Enter country" />
+              <mat-error *ngIf="submitted && f['country'].errors?.['required']">Country is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>State*</mat-label>
+              <input matInput formControlName="state" placeholder="Enter state" />
+              <mat-error *ngIf="submitted && f['state'].errors?.['required']">State is required</mat-error>
+            </mat-form-field>
           </div>
         </div>
 
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label for="educationTitle" class="form-label">Education*</label>
-            <input type="text" class="form-control" id="educationTitle" formControlName="educationTitle"
-              placeholder="Enter Education" [ngClass]="{ 'is-invalid': submitted && f['educationTitle'].errors }">
-
-            <div *ngIf="submitted && f['educationTitle'].errors" class="invalid-feedback">
-              <div *ngIf="f['educationTitle'].errors['required']">Education is required</div>
-            </div>
-
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>City*</mat-label>
+              <input matInput formControlName="city" placeholder="Enter city" />
+              <mat-error *ngIf="submitted && f['city'].errors?.['required']">City is required</mat-error>
+            </mat-form-field>
           </div>
 
           <div class="col-md-6 mb-3">
-            <label for="passingYear" class="form-label">Passing Year*</label>
-            <input type="number" class="form-control" id="passingYear" formControlName="passingYear"
-              placeholder="Enter Passing Year" [ngClass]="{ 'is-invalid': submitted && f['passingYear'].errors }">
-
-            <div *ngIf="submitted && f['passingYear'].errors" class="invalid-feedback">
-              <div *ngIf="f['passingYear'].errors['required']">Passing Year is required</div>
-            </div>
-
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Postal Code*</mat-label>
+              <input matInput formControlName="postalCode" placeholder="Enter postal code" />
+              <mat-error *ngIf="submitted && f['postalCode'].errors?.['required']">Postal code is required</mat-error>
+            </mat-form-field>
           </div>
         </div>
 
-        <div class="mb-3">
-          <label for="description" class="form-label">Description</label>
-          <textarea class="form-control" id="description" formControlName="description" rows="3"
-            placeholder="Short description"
-            [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"></textarea>
-
-          <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
-            <div *ngIf="f['description'].errors['required']">Description is required</div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Education*</mat-label>
+              <input matInput formControlName="educationTitle" placeholder="Enter education" />
+              <mat-error *ngIf="submitted && f['educationTitle'].errors?.['required']">Education is required</mat-error>
+            </mat-form-field>
           </div>
 
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Passing Year*</mat-label>
+              <input matInput type="number" formControlName="passingYear" placeholder="Enter passing year" />
+              <mat-error *ngIf="submitted && f['passingYear'].errors?.['required']">Passing year is required</mat-error>
+            </mat-form-field>
+          </div>
         </div>
+
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <mat-label>Description</mat-label>
+          <textarea matInput rows="3" formControlName="description" placeholder="Short description"></textarea>
+          <mat-error *ngIf="submitted && f['description'].errors?.['required']">
+            Description is required
+          </mat-error>
+        </mat-form-field>
 
         <div class="text-end">
-          <button type="button" class="btn btn-secondary px-4 me-2" (click)="onCancel()">
-            Cancel
-          </button>
-          <button type="submit" class="btn btn-primary px-4">
-            {{ isEditMode? 'Update': 'Register' }}
+          <button mat-stroked-button color="warn" type="button" (click)="onCancel()" class="me-2">Cancel</button>
+          <button mat-raised-button color="primary" type="submit">
+            {{ isEditMode ? 'Update' : 'Register' }}
           </button>
         </div>
       </form>
-
-    </div>
+    </mat-card>
   </div>
 </div>

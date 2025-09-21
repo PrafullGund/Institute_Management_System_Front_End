@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CanComponentDeactivate } from 'src/app/guards/unsaved-changes.guard';
 import { UserService } from 'src/app/service/user.service';
 import Swal from 'sweetalert2';
 
@@ -9,11 +10,12 @@ import Swal from 'sweetalert2';
   templateUrl: './user-registration.component.html',
   styleUrls: ['./user-registration.component.scss']
 })
-export class UserRegistrationComponent {
+export class UserRegistrationComponent implements CanComponentDeactivate {
   userRegistrationForm!: FormGroup;
   submitted = false;
   userId: Number | null = null;
   isEditMode = false;
+  private isSaved = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -22,16 +24,32 @@ export class UserRegistrationComponent {
     private route: ActivatedRoute
   ) {
     this.initForm();
-    
-    this.userService.selectedUser$.subscribe(user=>{
-      if(user){
-        this.userId=user.userId || user.id;
-        this.isEditMode=true;
+
+    this.userService.selectedUser$.subscribe(user => {
+      if (user) {
+        this.userId = user.userId || user.id;
+        this.isEditMode = true;
         this.loadGetByIdUser(this.userId);
-      }else{
-        this.isEditMode=false;
+      } else {
+        this.isEditMode = false;
       }
     })
+  }
+
+  canDeactivate(): Promise<boolean> {
+    if (this.userRegistrationForm.dirty && !this.isSaved) {
+      return Swal.fire({
+        title: 'Unsaved Changes',
+        text: 'You have unsaved changes. Do you really want to leave this page?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, leave',
+        cancelButtonText: 'Stay on this page'
+      }).then((result) => {
+        return result.isConfirmed;
+      });
+    }
+    return Promise.resolve(true);
   }
 
   private loadGetByIdUser(id: any) {
@@ -85,9 +103,20 @@ export class UserRegistrationComponent {
       return;
     }
 
+    const formValue = { ...this.userRegistrationForm.value };
+
+    if (formValue.dob) {
+      const date = new Date(formValue.dob);
+      const yyyy = date.getFullYear();
+      const mm = String(date.getMonth() + 1).padStart(2, '0');
+      const dd = String(date.getDate()).padStart(2, '0');
+      formValue.dob = `${yyyy}-${mm}-${dd}`;
+    }
+
     if (this.isEditMode && this.userId) {
-      this.userService.updateUserRegistration(this.userId, this.userRegistrationForm.value).subscribe({
+      this.userService.updateUserRegistration(this.userId, formValue).subscribe({
         next: (res: any) => {
+          this.isSaved = true;
           Swal.fire('Updated!', res.message, 'success').then(() => {
             this.router.navigate(['/inquiry/user']);
           });
@@ -95,16 +124,12 @@ export class UserRegistrationComponent {
         error: (err) => {
           Swal.fire('Error', err.error?.message || 'Failed to update user', 'error');
         }
-      })
+      });
     } else {
-      this.userService.postUserRegistration(this.userRegistrationForm.value).subscribe({
+      this.userService.postUserRegistration(formValue).subscribe({
         next: (res: any) => {
-          Swal.fire({
-            title: 'Success',
-            text: res.message,
-            icon: 'success',
-            confirmButtonText: 'OK'
-          }).then(() => {
+          this.isSaved = true;
+          Swal.fire('Success', res.message, 'success').then(() => {
             this.router.navigate(['/inquiry/user']);
           });
           this.userRegistrationForm.reset();
@@ -120,6 +145,7 @@ export class UserRegistrationComponent {
   onCancel() {
     this.userRegistrationForm.reset();
     this.submitted = false;
+    this.isSaved = true;
     this.userService.clearSelectedUser();
     this.router.navigate(['/inquiry/user']);
   }
