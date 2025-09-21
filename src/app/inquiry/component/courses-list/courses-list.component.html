@@ -1,59 +1,73 @@
-<!-- <div class="container mt-4">
+<div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <button class="btn btn-primary btn-add" data-bs-toggle="modal" data-bs-target="#addCourseModal">
-    Course Add
-  </button>
-    <input type="text" class="form-control w-25" placeholder="Search Course..." />
+    <button class="btn btn-primary btn-add">Add Course</button>
+
+    <mat-form-field class="custom-textarea">
+      <textarea matInput placeholder="Search"></textarea>
+    </mat-form-field>
   </div>
 
-  <table class="table table-bordered table-striped mt-5">
-    <thead>
-      <tr class="text-center">
-        <th>Sr.No</th>
-        <th>Course Name</th>
-        <th>Description</th>
-        <th>Fees</th>
-         <th>Course Mode</th>
-        <th>Duration</th>
-        <th>Type</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let course of courses;let i=index">
-        <td>{{i+1}}</td>
-        <td>{{course.courseName}}</td>
-        <td>{{course.description}}</td>
-        <td>{{course.courseFees}}</td>
-        <td>{{course.courseMode}}</td>
-        <td>{{course.courseDuration}}</td>
-        <td>{{course.typeName}}</td>
-        <td>
-          <button class="btn btn-sm btn-outline-primary me-2">
-            <i class="fas fa-edit"></i>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-table">
+
+      <ng-container matColumnDef="srNo">
+        <th mat-header-cell *matHeaderCellDef class="custom-table">Sr.No</th>
+        <td mat-cell *matCellDef="let course; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="courseName">
+        <th mat-header-cell *matHeaderCellDef class="custom-table">Course Name</th>
+        <td mat-cell *matCellDef="let course">{{ course.courseName }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef class="custom-table">Description</th>
+        <td mat-cell *matCellDef="let course">{{course.description}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="courseFees">
+        <th mat-header-cell *matHeaderCellDef class="custom-table">Fees</th>
+        <td mat-cell *matCellDef="let course">{{course.courseFees}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="courseMode">
+        <th mat-header-cell *matHeaderCellDef class="custom-table">Course Mode</th>
+        <td mat-cell *matCellDef="let course">{{course.courseMode}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="courseDuration">
+        <th mat-header-cell *matHeaderCellDef class="custom-table">Duration</th>
+        <td mat-cell *matCellDef="let course">{{course.courseDuration}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="typeName">
+        <th mat-header-cell *matHeaderCellDef class="custom-table">Type</th>
+        <td mat-cell *matCellDef="let course">{{course.typeName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef class="custom-table">Action</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="primary" >
+            <mat-icon>edit</mat-icon>
           </button>
-          <button class="btn btn-sm btn-outline-danger">
-            <i class="fas fa-trash"></i>
+          <button mat-icon-button color="warn">
+            <mat-icon>delete</mat-icon>
           </button>
         </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+      </ng-container>
 
-<div class="modal fade" id="addCourseModal" tabindex="-1" aria-labelledby="addCourseModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content mt-5">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addCourseModalLabel">Add Course</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <app-courses-add></app-courses-add>
-      </div>
-    </div>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <mat-paginator [length]="totalCourse"
+                   [pageSize]="limit"
+                   [pageSizeOptions]="[5, 10, 20]"
+                   (page)="onPageChange($event)">
+    </mat-paginator>
+    
   </div>
-</div> -->
-
-
-
+</div>
