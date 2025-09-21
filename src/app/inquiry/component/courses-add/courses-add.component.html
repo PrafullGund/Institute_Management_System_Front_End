@@ -1,18 +1,76 @@
-<form>
-  <div class="mb-3">
-    <label for="courseName" class="form-label">Course Name</label>
-    <input type="text" class="form-control" id="courseName" placeholder="Enter Course Name">
-  </div>
+<div class="container mt-4">
+  <mat-card-header>
+      <mat-card-title>
+        <h2 class="justify-content-center title">
+          Add New Course
+        </h2>
+      </mat-card-title>
+    </mat-card-header>
+  <mat-card class="shadow">
+    <mat-card-content>
+      <form class="course-form">
+        <div class="row">
+         
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Course Name</mat-label>
+              <input matInput placeholder="Enter Course Name" required>
+            </mat-form-field>
+          </div>
 
-  <div class="mb-3">
-    <label for="courseDesc" class="form-label">Description</label>
-    <textarea class="form-control" id="courseDesc" rows="3" placeholder="Course Description"></textarea>
-  </div>
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Course Fees</mat-label>
+              <input matInput type="number" placeholder="Enter Fees" required>
+            </mat-form-field>
+          </div>
+        </div>
 
-  <div class="mb-3">
-    <label for="courseFees" class="form-label">Fees</label>
-    <input type="number" class="form-control" id="courseFees" placeholder="Enter Fees">
-  </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Duration (Hours)</mat-label>
+              <input matInput type="number" placeholder="Enter Duration">
+            </mat-form-field>
+          </div>
 
-  <button type="submit" class="btn btn-primary">Save Course</button>
-</form>
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Course Mode</mat-label>
+              <mat-select>
+                <mat-option value="Online">Online</mat-option>
+                <mat-option value="Offline">Offline</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-form-field appearance="outline" class="w-100 mb-3">
+          <mat-label>Description</mat-label>
+          <textarea matInput rows="3" placeholder="Enter Course Description"></textarea>
+        </mat-form-field>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Type Name</mat-label>
+              <input matInput placeholder="Enter Type Name">
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Type Description</mat-label>
+              <input matInput placeholder="Enter Type Description">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="text-end mt-3">
+          <button mat-raised-button color="primary">Save Course</button>
+          <button mat-stroked-button color="warn" class="ms-2">Cancel</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

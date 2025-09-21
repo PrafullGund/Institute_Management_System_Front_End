@@ -30,6 +30,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';  
+
 
 @NgModule({
   declarations: [
@@ -67,7 +70,9 @@ import { MatSortModule } from '@angular/material/sort';
     MatSelectModule,
     MatCardModule,
     MatNativeDateModule,
-    MatSortModule
+    MatSortModule,
+    MatDialogModule,
+    MatDividerModule 
   ]
 })
 export class InquiryModule { }

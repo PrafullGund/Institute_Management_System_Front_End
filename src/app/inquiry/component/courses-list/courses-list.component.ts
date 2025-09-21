@@ -3,6 +3,8 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { CourseService } from 'src/app/service/course.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { CoursesAddComponent } from '../courses-add/courses-add.component';
 
 @Component({
   selector: 'app-courses-list',
@@ -10,7 +12,7 @@ import { CourseService } from 'src/app/service/course.service';
   styleUrls: ['./courses-list.component.scss']
 })
 export class CoursesListComponent {
-
+  
   limit = 10;
   currentPage = 1;
   totalCourse = 0;
@@ -31,7 +33,10 @@ export class CoursesListComponent {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  constructor(private courseService: CourseService) { }
+  constructor(
+    private courseService: CourseService,
+    private dialog:MatDialog
+  ) { }
 
   ngOnInit() {
     this.loadCourse();
@@ -62,6 +67,19 @@ export class CoursesListComponent {
     this.limit = event.pageSize;
     this.currentPage = event.pageIndex + 1;
     this.loadCourse(this.currentPage);
+  }
+
+  onAddCourse(){
+    const dialogConfig=new MatDialogConfig();
+    dialogConfig.width='700px';
+    dialogConfig.height='600px';
+
+    const dialogRef=this.dialog.open(CoursesAddComponent,dialogConfig);
+    dialogRef.afterClosed().subscribe({
+      next:(res:any)=>{
+        this.loadCourse();
+      }
+    })
   }
 
 }
