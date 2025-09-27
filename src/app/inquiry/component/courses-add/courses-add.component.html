@@ -8,20 +8,20 @@
     </mat-card-header>
   <mat-card class="shadow">
     <mat-card-content>
-      <form class="course-form">
+      <form class="course-form" [formGroup]="courseFrom" (ngSubmit)="saveCourse()">
         <div class="row">
          
           <div class="col-md-6 mb-3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Course Name</mat-label>
-              <input matInput placeholder="Enter Course Name" required>
+              <input matInput placeholder="Enter Course Name" formControlName="courseName">
             </mat-form-field>
           </div>
 
           <div class="col-md-6 mb-3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Course Fees</mat-label>
-              <input matInput type="number" placeholder="Enter Fees" required>
+              <input matInput type="number" placeholder="Enter Fees" formControlName="courseFees">
             </mat-form-field>
           </div>
         </div>
@@ -30,14 +30,14 @@
           <div class="col-md-6 mb-3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Duration (Hours)</mat-label>
-              <input matInput type="number" placeholder="Enter Duration">
+              <input matInput type="number" placeholder="Enter Duration" formControlName="courseDuration">
             </mat-form-field>
           </div>
 
           <div class="col-md-6 mb-3">
-            <mat-form-field appearance="outline" class="w-100">
+            <mat-form-field appearance="outline" class="w-100" formControlName="courseMode">
               <mat-label>Course Mode</mat-label>
-              <mat-select>
+              <mat-select formControlName="courseMode">
                 <mat-option value="Online">Online</mat-option>
                 <mat-option value="Offline">Offline</mat-option>
               </mat-select>
@@ -47,21 +47,21 @@
 
         <mat-form-field appearance="outline" class="w-100 mb-3">
           <mat-label>Description</mat-label>
-          <textarea matInput rows="3" placeholder="Enter Course Description"></textarea>
+          <textarea matInput rows="3" placeholder="Enter Course Description" formControlName="description"></textarea>
         </mat-form-field>
 
         <div class="row">
           <div class="col-md-6 mb-3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Type Name</mat-label>
-              <input matInput placeholder="Enter Type Name">
+              <input matInput placeholder="Enter Type Name" formControlName="typeName">
             </mat-form-field>
           </div>
 
           <div class="col-md-6 mb-3">
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Type Description</mat-label>
-              <input matInput placeholder="Enter Type Description">
+              <input matInput placeholder="Enter Type Description" formControlName="typeDescription">
             </mat-form-field>
           </div>
         </div>
